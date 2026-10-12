@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CausalRetention - Executive Retention Brief</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            color: #212529;
+            padding: 30px;
+        }
+        .report-card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            padding: 30px;
+            margin-bottom: 25px;
+        }
+        .kpi-box {
+            background: #f1f5f9;
+            border-left: 5px solid #0d6efd;
+            border-radius: 8px;
+            padding: 16px;
+        }
+        .kpi-val {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0d6efd;
+        }
+        .kpi-lbl {
+            font-size: 13px;
+            text-transform: uppercase;
+            color: #64748b;
+            font-weight: 600;
+        }
+        .badge-positive {
+            background-color: #d1e7dd;
+            color: #0f5132;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
+        .print-btn {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            z-index: 1000;
+        }
+        @media print {
+            .print-btn { display: none; }
+            body { padding: 0; background-color: #ffffff; }
+            .report-card { box-shadow: none; border: 1px solid #dee2e6; }
+        }
+    </style>
+</head>
+<body>
+    <button class="btn btn-primary print-btn shadow" onclick="window.print()">🖨️ Print / Save as PDF</button>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="report-card">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+                <div>
+                    <h2 class="fw-bold mb-1" style="color: #0f172a;">Executive Retention & Uplift Decision Brief</h2>
+                    <p class="text-muted mb-0">CausalRetention Decision Intelligence Engine</p>
+                </div>
+                <div class="text-end">
+                    <span class="badge bg-success mb-1">Status: Approved for Dispatch</span><br>
+                    <small class="text-muted">Generated: October 12, 2026 - 06:21:21</small>
+                </div>
+            </div>
+
+            <!-- KPI Row -->
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <div class="kpi-box">
+                        <div class="kpi-lbl">Budget Utilized</div>
+                        <div class="kpi-val">$14,960.00</div>
+                        <small class="text-muted">Cap: $15,000.00</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="kpi-box" style="border-left-color: #198754;">
+                        <div class="kpi-lbl">Customers Saved</div>
+                        <div class="kpi-val" style="color: #198754;">+88</div>
+                        <small class="text-muted">From 187 targeted</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="kpi-box" style="border-left-color: #0dcaf0;">
+                        <div class="kpi-lbl">Net Revenue Preserved</div>
+                        <div class="kpi-val" style="color: #0dcaf0;">$372,212.71</div>
+                        <small class="text-muted">Gross: $387,172.71</small>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="kpi-box" style="border-left-color: #ffc107;">
+                        <div class="kpi-lbl">Campaign ROI</div>
+                        <div class="kpi-val" style="color: #d39e00;">+2488.1%</div>
+                        <small class="text-muted">Net Return / Spend</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Strategy Benchmark Comparison -->
+        <div class="report-card">
+            <h4 class="fw-bold mb-3" style="color: #1e293b;">1. Strategic Benchmark Evaluation</h4>
+            <p class="text-secondary">
+                Comparative analysis demonstrating financial returns achieved under identical budget constraints ($<strong>15,000.00</strong>).
+                Notice how traditional churn modeling generates a net loss by subsidizing Lost Causes, while Causal Uplift isolates incremental persuadable accounts.
+            </p>
+            <div class="table-responsive">
+                <table class="dataframe table table-bordered">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Strategy</th>
+      <th>Budget Spent</th>
+      <th>Customers Targeted</th>
+      <th>Customers Saved</th>
+      <th>Gross Revenue Saved</th>
+      <th>Net Profit Gained</th>
+      <th>Campaign ROI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Causal Uplift (Our Approach)</td>
+      <td>$14,960.00</td>
+      <td>187</td>
+      <td>88</td>
+      <td>$387,172.71</td>
+      <td>$372,212.71</td>
+      <td>2488.1%</td>
+    </tr>
+    <tr>
+      <td>Standard Churn Prediction (Traditional)</td>
+      <td>$15,000.00</td>
+      <td>233</td>
+      <td>77</td>
+      <td>$248,222.23</td>
+      <td>$233,222.23</td>
+      <td>1554.8%</td>
+    </tr>
+    <tr>
+      <td>Random Promotion (Untargeted)</td>
+      <td>$14,935.00</td>
+      <td>246</td>
+      <td>11</td>
+      <td>$45,334.79</td>
+      <td>$30,399.79</td>
+      <td>203.5%</td>
+    </tr>
+  </tbody>
+</table>
+            </div>
+        </div>
+
+        <!-- Behavioral Breakdown -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="report-card h-100">
+                    <h5 class="fw-bold mb-3" style="color: #1e293b;">2. Targeted Cohort Composition</h5>
+                    <p class="text-muted small">
+                        Breakdown of the targeted accounts selected by the optimization engine under the current budget threshold.
+                    </p>
+                    <ul class="list-group">
+                        <li class='list-group-item d-flex justify-content-between align-items-center'><span>Persuadable (High Priority)</span><span class='badge bg-primary rounded-pill'>187</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="report-card h-100">
+                    <h5 class="fw-bold mb-3" style="color: #1e293b;">3. Operational Interventions</h5>
+                    <div class="alert alert-success py-2">
+                        <strong>Persuadables:</strong> Dispatch retention offer (20% discount or 3-month speed booster).
+                    </div>
+                    <div class="alert alert-secondary py-2">
+                        <strong>Sure Things:</strong> Suppress from all promotional discounts. Organic retention probability exceeds 90%.
+                    </div>
+                    <div class="alert alert-warning py-2">
+                        <strong>Sleeping Dogs:</strong> Blacklist from marketing notifications to avoid triggering dormant churn.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Priority Accounts Preview -->
+        <div class="report-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0" style="color: #1e293b;">4. Priority Dispatch List (Top 10 Accounts Sample)</h5>
+                <span class="badge bg-secondary">Total Targeted: 187</span>
+            </div>
+            <div class="table-responsive">
+                <table class="dataframe table table-hover table-striped">
+  <thead>
+    <tr style="text-align: right;">
+      <th>Customer ID</th>
+      <th>Customerid</th>
+      <th>Surname</th>
+      <th>Creditscore</th>
+      <th>Uplift Score (Tau)</th>
+      <th>Offer Cost ($)</th>
+      <th>Expected Net Profit ($)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>15595324</td>
+      <td>15595324</td>
+      <td>Daniels</td>
+      <td>579</td>
+      <td>0.7637</td>
+      <td>80.00</td>
+      <td>3356.65</td>
+    </tr>
+    <tr>
+      <td>15645847</td>
+      <td>15645847</td>
+      <td>P'eng</td>
+      <td>569</td>
+      <td>0.7232</td>
+      <td>80.00</td>
+      <td>3078.84</td>
+    </tr>
+    <tr>
+      <td>15664754</td>
+      <td>15664754</td>
+      <td>Steele</td>
+      <td>640</td>
+      <td>0.6868</td>
+      <td>80.00</td>
+      <td>3010.60</td>
+    </tr>
+    <tr>
+      <td>15812210</td>
+      <td>15812210</td>
+      <td>Yashina</td>
+      <td>497</td>
+      <td>0.6788</td>
+      <td>80.00</td>
+      <td>2948.46</td>
+    </tr>
+    <tr>
+      <td>15749583</td>
+      <td>15749583</td>
+      <td>Bellucci</td>
+      <td>686</td>
+      <td>0.7816</td>
+      <td>80.00</td>
+      <td>2845.36</td>
+    </tr>
+    <tr>
+      <td>15796230</td>
+      <td>15796230</td>
+      <td>Morley</td>
+      <td>642</td>
+      <td>0.6466</td>
+      <td>80.00</td>
+      <td>2829.70</td>
+    </tr>
+    <tr>
+      <td>15708867</td>
+      <td>15708867</td>
+      <td>Niu</td>
+      <td>684</td>
+      <td>0.6274</td>
+      <td>80.00</td>
+      <td>2743.30</td>
+    </tr>
+    <tr>
+      <td>15796764</td>
+      <td>15796764</td>
+      <td>Bruno</td>
+      <td>684</td>
+      <td>0.6174</td>
+      <td>80.00</td>
+      <td>2698.30</td>
+    </tr>
+    <tr>
+      <td>15572182</td>
+      <td>15572182</td>
+      <td>Onwuamaeze</td>
+      <td>505</td>
+      <td>0.6425</td>
+      <td>80.00</td>
+      <td>2657.22</td>
+    </tr>
+    <tr>
+      <td>15639077</td>
+      <td>15639077</td>
+      <td>Marchesi</td>
+      <td>622</td>
+      <td>0.6073</td>
+      <td>80.00</td>
+      <td>2652.85</td>
+    </tr>
+  </tbody>
+</table>
+            </div>
+            <p class="text-muted small mt-2 mb-0">
+                * Complete target roster of all 187 customers is available for direct export to CRM/marketing platforms via CSV.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-muted small py-3">
+            Generated autonomously by <strong>CausalRetention v1.0</strong> • Powered by T-Learner XGBoost & Financial Knapsack Optimization.
+        </div>
+    </div>
+</body>
+</html>
