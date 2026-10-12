@@ -21,3 +21,8 @@ ENV/
 
 # Streamlit local state
 .streamlit/secrets.toml
+
+# Resumes and LaTeX
+*.tex
+resume*
+
