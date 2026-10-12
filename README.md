@@ -1,10 +1,13 @@
 # 🎯 CausalRetention: Prescriptive Uplift & Retention Decision Engine
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://causal-retention.streamlit.app/)
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-F7931E?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
 [![XGBoost](https://img.shields.io/badge/XGBoost-EB5424?logo=xgboost&logoColor=white)](https://xgboost.ai/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://causal-retention.streamlit.app/)
 [![Plotly](https://img.shields.io/badge/Plotly-3F4F75?logo=plotly&logoColor=white)](https://plotly.com/)
+
+> **🌐 Live Interactive Platform:** [causal-retention.streamlit.app](https://causal-retention.streamlit.app/)
 
 An industry-grade, prescriptive machine learning platform that moves beyond generic churn prediction to **Causal Uplift Modeling and Financial ROI Optimization**.
 
@@ -119,7 +122,7 @@ causal-retention/
 ### 1. Installation
 Clone the repository and install dependencies:
 ```bash
-git clone https://github.com/your-username/CausalRetention.git
+git clone https://github.com/Sohan9022/CausalRetention.git
 cd CausalRetention
 pip install -r requirements.txt
 ```
