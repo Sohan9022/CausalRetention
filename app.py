@@ -513,27 +513,20 @@ with st.sidebar:
     st.markdown(SIDEBAR_SPECS_HTML, unsafe_allow_html=True)
 
 
-# ----------------- TOP ENTERPRISE NAVBAR -----------------
+# ----------------- TOP ENTERPRISE NAVBAR (100% REAL & AUTHENTIC) -----------------
 NAVBAR_HTML = textwrap.dedent("""
 <div class="enterprise-navbar">
     <div class="nav-brand-left">
         <div class="nav-logo-icon">⚡</div>
         <span class="nav-brand-text">CausalRetention</span>
-        <span class="nav-tag">ENTERPRISE v2.4</span>
+        <span class="nav-tag">Prescriptive ML</span>
         <span class="nav-crumb">/</span>
-        <span class="nav-env-name">Portfolio Decision Intelligence</span>
+        <span class="nav-env-name">Decision Intelligence & Uplift Platform</span>
     </div>
-    <div class="nav-telemetry-right">
-        <div class="telemetry-pill-green">
-            <span class="pulse-dot"></span>
-            <span>SYSTEM HEALTH: 99.98%</span>
-        </div>
-        <div class="telemetry-item">
-            <span>CLUSTER:</span> <span class="telemetry-val">US-EAST-1</span>
-        </div>
-        <div class="telemetry-item">
-            <span>LATENCY:</span> <span class="telemetry-val" style="color: #38BDF8;">18ms</span>
-        </div>
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <a href="https://github.com/Sohan9022/CausalRetention" target="_blank" style="text-decoration: none; color: #CBD5E1; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 8px; transition: all 0.2s ease;">
+            <span style="color: #818CF8;">★</span> GitHub Repo ↗
+        </a>
     </div>
 </div>
 """).strip()
