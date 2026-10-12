@@ -27,7 +27,6 @@ ENV/
 resume*
 
 # Unused heavy datasets
-data/raw/Bank_Churn_Modelling.csv
 data/raw/customer_churn_dataset.csv
 data/raw/SaaS_Subscription_Retention.csv
 

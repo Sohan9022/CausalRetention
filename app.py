@@ -11,6 +11,7 @@ import streamlit as st
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 from data_loader import load_or_create_data
+from dynamic_pipeline import UniversalTLearner, auto_prepare_dataset
 from optimizer import apply_financial_metrics, compare_all_strategies, optimize_retention_budget
 from report_generator import generate_html_report
 from uplift_model import TLearnerUpliftEngine, compute_cumulative_uplift_curve
@@ -399,6 +400,25 @@ def get_default_engine_and_data():
     return engine, scored
 
 
+@st.cache_resource
+def get_bank_engine_and_data():
+    """Load and train Bank Customer Churn Benchmark (10,000 Accounts)."""
+    cache_path = os.path.join("data", "raw", "Bank_Churn_Modelling.csv")
+    if not os.path.exists(cache_path):
+        url = "https://raw.githubusercontent.com/YBI-Foundation/Dataset/main/Bank%20Churn%20Modelling.csv"
+        df_raw = pd.read_csv(url)
+        os.makedirs(os.path.dirname(cache_path), exist_ok=True)
+        df_raw.to_csv(cache_path, index=False)
+    else:
+        df_raw = pd.read_csv(cache_path)
+
+    df_prep, feat_cols = auto_prepare_dataset(df_raw, target_col="Churn", target_is_churn=True)
+    engine = UniversalTLearner(random_state=42)
+    engine.fit(df_prep, feat_cols)
+    scored = engine.predict_uplift(df_prep)
+    return engine, scored
+
+
 # ----------------- SIDEBAR CONTROLS -----------------
 with st.sidebar:
     SIDEBAR_BRAND_HTML = textwrap.dedent("""
@@ -511,24 +531,122 @@ HEADER_HTML = textwrap.dedent("""
 st.markdown(HEADER_HTML, unsafe_allow_html=True)
 
 
-# ----------------- ACTIVE DATASET ENGINE (IBM TELCO BENCHMARK) -----------------
-active_engine, active_scored_df = get_default_engine_and_data()
-current_dataset_name = "IBM Telco Retention Benchmark (7,043 Accounts)"
-
-DATASET_BADGE_HTML = textwrap.dedent("""
-<div style="background: rgba(15, 23, 42, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 10px 18px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px;">
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.4); color: #A5B4FC; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.04em;">ACTIVE COHORT</span>
-        <span style="font-weight: 700; font-size: 13.5px; color: #FFFFFF;">IBM Telco Customer Retention Benchmark</span>
-        <span style="color: #94A3B8; font-size: 13px;">(7,043 Accounts &middot; 50/50 Randomized A/B Trial)</span>
-    </div>
-    <div style="font-size: 12px; color: #10B981; font-weight: 600; display: flex; align-items: center; gap: 6px;">
-        <span style="width: 7px; height: 7px; background-color: #10B981; border-radius: 50%; display: inline-block;"></span>
-        <span>Pre-Trained Model Bundle Active</span>
-    </div>
+# ----------------- PROMINENT ENVIRONMENT SWITCHER -----------------
+ENV_SWITCH_HTML = textwrap.dedent("""
+<div style="margin-bottom: 8px;">
+    <span style="font-size: 11.5px; font-weight: 700; color: #94A3B8; letter-spacing: 0.06em; text-transform: uppercase;">
+        ⚡ Enterprise Data Environment Cohort
+    </span>
 </div>
 """).strip()
-st.markdown(DATASET_BADGE_HTML, unsafe_allow_html=True)
+st.markdown(ENV_SWITCH_HTML, unsafe_allow_html=True)
+
+dataset_source = st.radio(
+    "Active Environment:",
+    [
+        "📊 Telecom Retention Benchmark (IBM Telco - 7,043 Accounts)",
+        "🏦 Banking Retention Benchmark (Bank Churn - 10,000 Accounts)",
+        "📁 Upload Custom Dataset (Any CSV File)",
+    ],
+    horizontal=True,
+    label_visibility="collapsed",
+)
+
+st.write("")
+
+# ----------------- DATASET LOGIC -----------------
+active_engine = None
+active_scored_df = None
+current_dataset_name = "IBM Telco Retention Cohort (7,043 Accounts)"
+
+if dataset_source.startswith("📊 Telecom"):
+    active_engine, active_scored_df = get_default_engine_and_data()
+    current_dataset_name = "IBM Telco Retention Benchmark (7,043 Accounts)"
+
+elif dataset_source.startswith("🏦 Banking"):
+    with st.spinner("Loading Bank Churn Benchmark & scoring uplift (10,000 Accounts)..."):
+        active_engine, active_scored_df = get_bank_engine_and_data()
+        current_dataset_name = "Bank Customer Churn Benchmark (10,000 Accounts)"
+
+else:
+    # Custom Dataset Upload Workflow Card
+    with st.container(border=True):
+        st.markdown("### 📁 Custom Dataset Upload & Auto-Mapper")
+        st.write("Upload any tabular churn or customer retention CSV dataset. The engine will auto-detect features, train the T-Learner uplift model, and calibrate financial returns.")
+
+        up_col1, up_col2 = st.columns([1, 1])
+
+        with up_col1:
+            uploaded_file = st.file_uploader("Upload CSV File", type=["csv"], key="custom_csv_uploader")
+
+        if uploaded_file is not None:
+            try:
+                try:
+                    raw_user_df = pd.read_csv(uploaded_file)
+                    if len(raw_user_df.columns) == 1 and ";" in str(raw_user_df.columns[0]):
+                        uploaded_file.seek(0)
+                        raw_user_df = pd.read_csv(uploaded_file, sep=";")
+                except Exception:
+                    uploaded_file.seek(0)
+                    raw_user_df = pd.read_csv(uploaded_file, sep=None, engine="python")
+
+                st.success(f"✓ Loaded `{uploaded_file.name}` ({len(raw_user_df):,} rows, {len(raw_user_df.columns)} columns)")
+
+                all_cols = list(raw_user_df.columns)
+                target_candidates = [c for c in all_cols if any(k in c.lower() for k in ["churn", "retain", "leave", "cancel", "exited", "attrit"])]
+                default_target_idx = all_cols.index(target_candidates[0]) if target_candidates else 0
+
+                id_candidates = [c for c in all_cols if any(k in c.lower() for k in ["customerid", "customer_id", "cust_id", "custid", "clientnum", "client_id", "accountid", "user_id", "id"])]
+                default_id_idx = (all_cols.index(id_candidates[0]) + 1) if id_candidates else 0
+
+                with up_col2:
+                    st.markdown("#### Schema Mapping Wizard")
+                    m_row1, m_row2 = st.columns(2)
+                    with m_row1:
+                        target_col = st.selectbox("Target Column (Outcome):", all_cols, index=default_target_idx)
+                        target_is_churn = st.radio("Target Meaning:", ["1 = Churn (0 = Retained)", "1 = Retained (0 = Churn)"], index=0) == "1 = Churn (0 = Retained)"
+
+                        id_options = ["Auto-Detect / Generate"] + all_cols
+                        id_col_sel = st.selectbox("Customer ID Column (Optional):", id_options, index=default_id_idx)
+                        actual_id_col = None if id_col_sel.startswith("Auto-Detect") else id_col_sel
+
+                    with m_row2:
+                        treatment_candidates = ["None (Simulate 50/50 A/B Trial)"] + all_cols
+                        treatment_col_sel = st.selectbox("Treatment Column (Optional):", treatment_candidates, index=0)
+                        actual_treat_col = None if treatment_col_sel.startswith("None") else treatment_col_sel
+
+                        clv_candidates = ["Auto-Calibrate from Spend/Balance"] + all_cols
+                        clv_col_sel = st.selectbox("CLV / Spend Column (Optional):", clv_candidates, index=0)
+                        actual_clv_col = None if clv_col_sel.startswith("Auto-Calibrate") else clv_col_sel
+
+                    if st.button("⚡ Train Uplift Model on Uploaded CSV", type="primary", use_container_width=True):
+                        with st.spinner("Processing schema, imputing, encoding, and fitting Two-Model XGBoost..."):
+                            clean_df, feat_cols = auto_prepare_dataset(
+                                df=raw_user_df,
+                                target_col=target_col,
+                                target_is_churn=target_is_churn,
+                                treatment_col=actual_treat_col,
+                                id_col=actual_id_col,
+                                clv_col=actual_clv_col,
+                            )
+                            uni_engine = UniversalTLearner(random_state=42)
+                            uni_engine.fit(clean_df, feat_cols)
+                            scored_custom = uni_engine.predict_uplift(clean_df)
+                            st.session_state["custom_scored"] = scored_custom
+                            st.session_state["custom_engine"] = uni_engine
+                            st.session_state["custom_name"] = uploaded_file.name
+                            st.success("✓ Training complete! All tabs updated below.")
+
+            except Exception as e:
+                st.error(f"Error parsing uploaded CSV: {e}")
+
+        if "custom_scored" in st.session_state:
+            active_scored_df = st.session_state["custom_scored"]
+            active_engine = st.session_state["custom_engine"]
+            current_dataset_name = f"Custom: {st.session_state.get('custom_name', 'File')} ({len(active_scored_df):,} Accounts)"
+        else:
+            st.info("👆 Upload your CSV file above and click '⚡ Train Uplift Model' to populate the dashboard.")
+            st.stop()
 
 
 # ----------------- FINANCIAL COMPUTATION -----------------
@@ -852,56 +970,99 @@ with tab_sim:
         st.subheader("5. Interactive Customer Live Scorer")
         st.caption("Simulate any account profile to inspect live causal uplift and policy recommendation:")
 
-        sim1, sim2 = st.columns(2)
+        if isinstance(active_engine, TLearnerUpliftEngine):
+            sim1, sim2 = st.columns(2)
 
-        with sim1:
-            st.markdown("##### Account Parameters")
-            sim_tenure = st.slider("Tenure (Months)", 1, 72, 8)
-            sim_monthly = st.slider("Monthly Charges / Spend ($)", 15.0, 150.0, 75.0)
-            sim_contract = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
-            sim_support = st.selectbox("Tech Support Active", ["No", "Yes", "No internet service"])
+            with sim1:
+                st.markdown("##### Account Parameters")
+                sim_tenure = st.slider("Tenure (Months)", 1, 72, 8)
+                sim_monthly = st.slider("Monthly Charges / Spend ($)", 15.0, 150.0, 75.0)
+                sim_contract = st.selectbox("Contract Type", ["Month-to-month", "One year", "Two year"])
+                sim_support = st.selectbox("Tech Support Active", ["No", "Yes", "No internet service"])
 
-        with sim2:
-            sim_row = pd.DataFrame(
-                [
-                    {
-                        "customerID": "SIM-01",
-                        "gender": "Female",
-                        "SeniorCitizen": "No",
-                        "Partner": "No",
-                        "Dependents": "No",
-                        "tenure": sim_tenure,
-                        "PhoneService": "Yes",
-                        "MultipleLines": "No",
-                        "InternetService": "Fiber optic",
-                        "OnlineSecurity": "No",
-                        "OnlineBackup": "No",
-                        "DeviceProtection": "No",
-                        "TechSupport": sim_support,
-                        "StreamingTV": "No",
-                        "StreamingMovies": "No",
-                        "Contract": sim_contract,
-                        "PaperlessBilling": "Yes",
-                        "PaymentMethod": "Electronic check",
-                        "MonthlyCharges": sim_monthly,
-                        "TotalCharges": sim_monthly * sim_tenure,
-                        "annual_clv": sim_monthly * 12,
-                        "offer_cost": round(15.0 + (sim_monthly * 0.15 * 3), 2),
-                    }
-                ]
-            )
+            with sim2:
+                sim_row = pd.DataFrame(
+                    [
+                        {
+                            "customerID": "SIM-01",
+                            "gender": "Female",
+                            "SeniorCitizen": "No",
+                            "Partner": "No",
+                            "Dependents": "No",
+                            "tenure": sim_tenure,
+                            "PhoneService": "Yes",
+                            "MultipleLines": "No",
+                            "InternetService": "Fiber optic",
+                            "OnlineSecurity": "No",
+                            "OnlineBackup": "No",
+                            "DeviceProtection": "No",
+                            "TechSupport": sim_support,
+                            "StreamingTV": "No",
+                            "StreamingMovies": "No",
+                            "Contract": sim_contract,
+                            "PaperlessBilling": "Yes",
+                            "PaymentMethod": "Electronic check",
+                            "MonthlyCharges": sim_monthly,
+                            "TotalCharges": sim_monthly * sim_tenure,
+                            "annual_clv": sim_monthly * 12,
+                            "offer_cost": round(15.0 + (sim_monthly * 0.15 * 3), 2),
+                        }
+                    ]
+                )
 
-            try:
-                sim_res = active_engine.predict_uplift(sim_row)
-                sim_scored = apply_financial_metrics(sim_res)
+                try:
+                    sim_res = active_engine.predict_uplift(sim_row)
+                    sim_scored = apply_financial_metrics(sim_res)
 
-                tau_val = sim_scored.iloc[0]["uplift_score"]
-                p0_val = sim_scored.iloc[0]["p_retained_control"]
-                p1_val = sim_scored.iloc[0]["p_retained_treatment"]
-                quad_val = sim_scored.iloc[0]["quadrant"]
-                net_val = sim_scored.iloc[0]["expected_net_profit"]
+                    tau_val = sim_scored.iloc[0]["uplift_score"]
+                    p0_val = sim_scored.iloc[0]["p_retained_control"]
+                    p1_val = sim_scored.iloc[0]["p_retained_treatment"]
+                    quad_val = sim_scored.iloc[0]["quadrant"]
+                    net_val = sim_scored.iloc[0]["expected_net_profit"]
 
-                st.markdown("##### Model Inference")
+                    st.markdown("##### Model Inference")
+                    with st.container(border=True):
+                        st.metric("Individual Treatment Effect (Tau)", f"{tau_val:+.2f}")
+
+                        m1, m2 = st.columns(2)
+                        with m1:
+                            st.metric("P(Stay | No Offer)", f"{p0_val * 100:.1f}%")
+                        with m2:
+                            st.metric("P(Stay | Offer)", f"{p1_val * 100:.1f}%")
+
+                        st.markdown(f"**Classification:** `{quad_val}`")
+                        st.markdown(f"**Expected Net Profit:** `${net_val:,.2f}`")
+
+                except Exception as e:
+                    st.error(f"Simulator error: {e}")
+        else:
+            # Universal Dynamic Simulator for Banking & Custom Uploaded Datasets (100% KeyError-Safe)
+            sim_col1, sim_col2 = st.columns([1, 1])
+
+            sample_ids = scored_fin["customerID"].head(200).tolist()
+            with sim_col1:
+                st.markdown("##### Account Selection & Profile")
+                selected_id = st.selectbox("Choose Customer Account ID to Inspect:", sample_ids)
+                cust_match = scored_fin[scored_fin["customerID"] == selected_id].iloc[0]
+
+                # Show key feature values
+                feat_dict = {}
+                feature_list = getattr(active_engine, "feature_cols", [c for c in scored_fin.columns if c not in ["customerID", "retained", "churn", "treatment", "annual_clv", "offer_cost", "uplift_score", "quadrant", "expected_net_profit", "expected_gross_revenue_saved", "campaign_offer_cost", "campaign_clv"]])
+                for f in feature_list[:8]:
+                    if f in cust_match:
+                        feat_dict[f] = str(cust_match[f])
+                st.json(feat_dict)
+
+            with sim_col2:
+                st.markdown("##### Causal Model Inference & ROI")
+                tau_val = float(cust_match.get("uplift_score", 0.0))
+                p0_val = float(cust_match.get("p_retained_control", 0.5))
+                p1_val = float(cust_match.get("p_retained_treatment", 0.5))
+                quad_val = str(cust_match.get("quadrant", "Persuadable (High Priority)"))
+                clv_val = float(cust_match.get("campaign_clv", cust_match.get("annual_clv", 600.0)))
+                cost_val = float(cust_match.get("campaign_offer_cost", cust_match.get("offer_cost", 40.0)))
+                net_val = float(cust_match.get("expected_net_profit", round((tau_val * clv_val) - cost_val, 2)))
+
                 with st.container(border=True):
                     st.metric("Individual Treatment Effect (Tau)", f"{tau_val:+.2f}")
 
@@ -912,7 +1073,6 @@ with tab_sim:
                         st.metric("P(Stay | Offer)", f"{p1_val * 100:.1f}%")
 
                     st.markdown(f"**Classification:** `{quad_val}`")
+                    st.markdown(f"**Annual Customer Value (CLV):** `${clv_val:,.2f}`")
+                    st.markdown(f"**Campaign Offer Cost:** `${cost_val:,.2f}`")
                     st.markdown(f"**Expected Net Profit:** `${net_val:,.2f}`")
-
-            except Exception as e:
-                st.error(f"Simulator error: {e}")
