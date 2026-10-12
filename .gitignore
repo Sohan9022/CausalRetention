@@ -25,6 +25,7 @@ ENV/
 # Resumes and LaTeX
 *.tex
 resume*
+profile.*
 
 # Unused heavy datasets
 data/raw/customer_churn_dataset.csv
