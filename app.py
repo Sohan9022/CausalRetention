@@ -26,14 +26,14 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# --- TOP-TIER ENTERPRISE DESIGN SYSTEM (Linear / Stripe / Vercel Prototype Standard) ---
+# --- TOP-TIER ENTERPRISE DESIGN SYSTEM (Google Cloud / Meta AI Prototype Standard) ---
 CUSTOM_CSS = textwrap.dedent("""
 <style>
 /* 1. Official Google Web Fonts & Material Symbols for Streamlit Icons */
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
 
-/* 2. Global Typography */
+/* 2. Global Typography & Clean Light Canvas */
 html, body, .stApp {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
 }
@@ -68,15 +68,14 @@ code, pre {
     -webkit-font-feature-settings: 'liga' 1 !important;
 }
 
-/* 4. Canvas & Lighting: Replace muddy pitch-black with Luminous Midnight Slate (Linear/Stripe standard) */
+/* 4. Canvas & Lighting: Top-Tier Google Cloud / Meta AI Crisp Light Canvas */
 .stApp {
-    background-color: #0A0E17 !important;
+    background-color: #F8FAFC !important;
     background-image: 
-        radial-gradient(ellipse 90% 55% at 50% -12%, rgba(99, 102, 241, 0.18), transparent 70%),
-        radial-gradient(ellipse 65% 45% at 90% 20%, rgba(14, 165, 233, 0.09), transparent 60%),
-        radial-gradient(circle at 10% 80%, rgba(99, 102, 241, 0.05), transparent 50%) !important;
+        radial-gradient(ellipse 90% 50% at 50% -10%, rgba(99, 102, 241, 0.07), transparent 70%),
+        radial-gradient(ellipse 70% 40% at 90% 15%, rgba(14, 165, 233, 0.05), transparent 60%) !important;
     background-attachment: fixed !important;
-    color: #F8FAFC !important;
+    color: #0F172A !important;
 }
 
 /* 5. Streamlit Chrome Header & Toolbar: CRITICAL FIX - DO NOT HIDE stToolbar (which contains expand button) */
@@ -106,37 +105,36 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     display: none !important;
 }
 
-/* 6. SIDEBAR TOGGLE BUTTONS: Enterprise Big-Company Prototype Styling */
-/* Open/Expand Floating Dock Button (visible when sidebar is collapsed) */
+/* 6. SIDEBAR TOGGLE BUTTONS: Enterprise Big-Company Floating Action Pill */
 [data-testid="stExpandSidebarButton"] {
     display: inline-flex !important;
     visibility: visible !important;
     opacity: 1 !important;
     z-index: 999999 !important;
     position: fixed !important;
-    top: 12px !important;
-    left: 18px !important;
-    background: rgba(17, 28, 46, 0.94) !important;
+    top: 14px !important;
+    left: 20px !important;
+    background: #FFFFFF !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(99, 102, 241, 0.45) !important;
+    border: 1px solid #CBD5E1 !important;
     border-radius: 10px !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), 0 0 16px rgba(99, 102, 241, 0.25) !important;
+    box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08), 0 1px 3px rgba(15, 23, 42, 0.05) !important;
     padding: 7px 14px !important;
     cursor: pointer !important;
     pointer-events: auto !important;
     transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 [data-testid="stExpandSidebarButton"]:hover {
-    background: rgba(30, 48, 80, 0.98) !important;
-    border-color: #818CF8 !important;
-    box-shadow: 0 6px 24px rgba(99, 102, 241, 0.4), 0 0 20px rgba(99, 102, 241, 0.35) !important;
+    background: #F1F5F9 !important;
+    border-color: #6366F1 !important;
+    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.18) !important;
     transform: translateY(-1px) scale(1.02) !important;
 }
 [data-testid="stExpandSidebarButton"] button {
     background: transparent !important;
     border: none !important;
-    color: #FFFFFF !important;
+    color: #0F172A !important;
     display: inline-flex !important;
     align-items: center !important;
     gap: 8px !important;
@@ -148,12 +146,12 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif !important;
     font-size: 12px !important;
     font-weight: 700 !important;
-    color: #E2E8F0 !important;
+    color: #1E293B !important;
     letter-spacing: -0.01em !important;
     white-space: nowrap !important;
 }
 [data-testid="stExpandSidebarButton"]:hover button::after {
-    color: #FFFFFF !important;
+    color: #4F46E5 !important;
 }
 
 /* Sidebar Collapse Button inside Sidebar Header */
@@ -163,10 +161,10 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     margin-right: 4px !important;
 }
 [data-testid="stSidebarCollapseButton"] button {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 8px !important;
-    color: #CBD5E1 !important;
+    color: #475569 !important;
     padding: 6px 8px !important;
     display: inline-flex !important;
     align-items: center !important;
@@ -175,11 +173,11 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     cursor: pointer !important;
 }
 [data-testid="stSidebarCollapseButton"] button:hover {
-    background: rgba(99, 102, 241, 0.22) !important;
-    border-color: #818CF8 !important;
-    color: #FFFFFF !important;
+    background: #EEF2FF !important;
+    border-color: #6366F1 !important;
+    color: #4F46E5 !important;
     transform: scale(1.06) !important;
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.3) !important;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.15) !important;
 }
 
 /* 7. Canvas Spacing & Layout */
@@ -189,63 +187,50 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     max-width: 95% !important;
 }
 
-/* 8. Top Enterprise Navbar (Linear / Vercel style) */
+/* 8. Top Enterprise Navbar (Google / Meta AI Prototype Style) */
 .enterprise-navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(18, 28, 48, 0.85);
+    background: #FFFFFF;
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    border: 1px solid #E2E8F0;
     border-radius: 14px;
     padding: 12px 20px;
     margin-bottom: 18px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05), 0 10px 24px -6px rgba(15, 23, 42, 0.04);
 }
 .nav-brand-left {
     display: flex;
     align-items: center;
     gap: 12px;
 }
-.nav-logo-icon {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-    width: 28px;
-    height: 28px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 800;
-    color: white;
-    box-shadow: 0 0 14px rgba(99, 102, 241, 0.4);
-}
 .nav-brand-text {
     font-weight: 800;
-    font-size: 15px;
-    color: #FFFFFF;
+    font-size: 16px;
+    color: #0F172A;
     letter-spacing: -0.02em;
 }
 .nav-tag {
     font-size: 10.5px;
     font-weight: 700;
     padding: 2px 8px;
-    background: rgba(99, 102, 241, 0.16);
-    border: 1px solid rgba(99, 102, 241, 0.35);
-    color: #A5B4FC;
+    background: #EEF2FF;
+    border: 1px solid #C7D2FE;
+    color: #4338CA;
     border-radius: 6px;
     letter-spacing: 0.03em;
     margin-left: 6px;
 }
 .nav-crumb {
-    color: #475569;
+    color: #CBD5E1;
     font-size: 14px;
 }
 .nav-env-name {
-    color: #94A3B8;
-    font-size: 12.5px;
-    font-weight: 500;
+    color: #64748B;
+    font-size: 13px;
+    font-weight: 600;
 }
 .nav-telemetry-right {
     display: flex;
@@ -256,30 +241,28 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    background: rgba(16, 185, 129, 0.12);
-    border: 1px solid rgba(16, 185, 129, 0.28);
-    color: #34D399;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #047857;
     padding: 4px 12px;
     border-radius: 9999px;
     font-size: 11.5px;
     font-weight: 600;
 }
 
-/* 9. Header Container (Frosted Glass & Linear Aesthetics) */
+/* 9. Header Container (Enterprise Hero Card) */
 .brand-header-card {
-    background: linear-gradient(135deg, rgba(20, 31, 52, 0.75) 0%, rgba(13, 20, 35, 0.85) 100%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.09);
+    background: #FFFFFF;
+    border: 1px solid #E2E8F0;
     border-radius: 16px;
     padding: 24px 28px;
     margin-bottom: 20px;
-    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 16px 32px -8px rgba(15, 23, 42, 0.06);
 }
 
 .brand-badge {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%);
-    box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);
+    background: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
     color: #FFFFFF;
     font-weight: 800;
     font-size: 15px;
@@ -295,9 +278,9 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(16, 185, 129, 0.1);
-    border: 1px solid rgba(16, 185, 129, 0.28);
-    color: #34D399;
+    background: #ECFDF5;
+    border: 1px solid #A7F3D0;
+    color: #047857;
     padding: 6px 14px;
     border-radius: 9999px;
     font-size: 12px;
@@ -325,32 +308,30 @@ header[data-testid="stHeader"] [data-testid="stToolbar"] > [data-testid="stToolb
     }
 }
 
-/* 10. Card Surfaces (Linear / Stripe glassmorphism) */
+/* 10. Card Surfaces (Google / Meta Clean Container Aesthetics) */
 div[data-testid="stVerticalBlockBorderWrapper"] > div {
-    background: linear-gradient(180deg, rgba(20, 31, 52, 0.75) 0%, rgba(13, 20, 35, 0.85) 100%) !important;
-    backdrop-filter: blur(16px) !important;
-    -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(255, 255, 255, 0.09) !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 14px !important;
-    box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 24px -4px rgba(15, 23, 42, 0.05) !important;
     transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 div[data-testid="stVerticalBlockBorderWrapper"] > div:hover {
-    border-color: rgba(99, 102, 241, 0.25) !important;
-    box-shadow: 0 8px 32px -4px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+    border-color: #CBD5E1 !important;
+    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.08) !important;
 }
 
 /* 11. Streamlit Tabs Custom Styling */
 .stTabs [data-baseweb="tab-list"] {
     gap: 8px;
     background-color: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.09);
+    border-bottom: 1px solid #E2E8F0;
     padding-bottom: 4px;
 }
 .stTabs [data-baseweb="tab"] {
     background-color: transparent !important;
     border-radius: 8px 8px 0 0 !important;
-    color: #94A3B8 !important;
+    color: #64748B !important;
     font-weight: 600 !important;
     font-size: 13.5px !important;
     padding: 10px 18px !important;
@@ -358,25 +339,26 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div:hover {
     transition: all 0.2s ease;
 }
 .stTabs [data-baseweb="tab"]:hover {
-    color: #F8FAFC !important;
-    background: rgba(255, 255, 255, 0.04) !important;
+    color: #0F172A !important;
+    background: #F1F5F9 !important;
 }
 .stTabs [aria-selected="true"] {
-    color: #FFFFFF !important;
-    border-bottom: 2px solid #6366F1 !important;
-    background: linear-gradient(180deg, rgba(99, 102, 241, 0.12) 0%, transparent 100%) !important;
+    color: #4F46E5 !important;
+    border-bottom: 2px solid #4F46E5 !important;
+    background: #EEF2FF !important;
 }
 
-/* 12. Sidebar background & high-contrast surfaces */
+/* 12. Sidebar background & high-contrast clean surfaces */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0D1527 0%, #080D18 100%) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.3) !important;
+    background: #FFFFFF !important;
+    border-right: 1px solid #E2E8F0 !important;
+    box-shadow: 2px 0 16px rgba(15, 23, 42, 0.04) !important;
+    color: #0F172A !important;
 }
 
 section[data-testid="stSidebar"] hr {
     margin: 16px 0 !important;
-    border-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: #E2E8F0 !important;
 }
 
 /* Sidebar Titles & Labels */
@@ -384,7 +366,7 @@ section[data-testid="stSidebar"] hr {
     font-size: 11px !important;
     font-weight: 700 !important;
     text-transform: uppercase !important;
-    color: #94A3B8 !important;
+    color: #64748B !important;
     letter-spacing: 0.06em !important;
     margin-bottom: 8px !important;
     display: flex !important;
@@ -394,7 +376,7 @@ section[data-testid="stSidebar"] hr {
 
 /* Sidebar Sliders */
 section[data-testid="stSidebar"] .stSlider label {
-    color: #F8FAFC !important;
+    color: #0F172A !important;
     font-size: 12.5px !important;
     font-weight: 600 !important;
 }
@@ -411,59 +393,62 @@ section[data-testid="stSidebar"] div[role="radiogroup"] {
 }
 
 section[data-testid="stSidebar"] div[role="radiogroup"] > label {
-    background: rgba(20, 31, 52, 0.6) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: #F8FAFC !important;
+    border: 1px solid #E2E8F0 !important;
     border-radius: 9px !important;
     padding: 9px 12px !important;
     width: 100% !important;
     font-size: 12.5px !important;
-    color: #CBD5E1 !important;
+    color: #334155 !important;
     transition: all 0.2s ease !important;
 }
 
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
-    background: rgba(99, 102, 241, 0.15) !important;
-    border-color: rgba(99, 102, 241, 0.4) !important;
-    color: #FFFFFF !important;
+    background: #EEF2FF !important;
+    border-color: #A5B4FC !important;
+    color: #4338CA !important;
 }
 
 section[data-testid="stSidebar"] div[role="radiogroup"] > label[data-checked="true"],
 section[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checked) {
-    background: rgba(99, 102, 241, 0.25) !important;
+    background: #EEF2FF !important;
     border-color: #6366F1 !important;
-    color: #FFFFFF !important;
-    box-shadow: 0 0 14px rgba(99, 102, 241, 0.3) !important;
+    color: #312E81 !important;
+    font-weight: 700 !important;
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.15) !important;
 }
 
 /* 13. Buttons */
 button[kind="primary"] {
-    background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%) !important;
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    background: #4F46E5 !important;
+    border: 1px solid #4338CA !important;
     border-radius: 8px !important;
-    box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4) !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.25) !important;
+    color: #FFFFFF !important;
     font-weight: 600 !important;
     letter-spacing: -0.01em !important;
     transition: all 0.2s ease !important;
 }
 button[kind="primary"]:hover {
-    box-shadow: 0 6px 20px rgba(99, 102, 241, 0.55) !important;
+    background: #4338CA !important;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
     transform: translateY(-1px) !important;
 }
 
 /* Quick budget pills */
 section[data-testid="stSidebar"] button[kind="secondary"] {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    background: #F8FAFC !important;
+    border: 1px solid #CBD5E1 !important;
     border-radius: 8px !important;
-    color: #E2E8F0 !important;
+    color: #334155 !important;
     font-weight: 600 !important;
     font-size: 12px !important;
     transition: all 0.2s ease !important;
 }
 section[data-testid="stSidebar"] button[kind="secondary"]:hover {
-    background: rgba(99, 102, 241, 0.2) !important;
+    background: #EEF2FF !important;
     border-color: #6366F1 !important;
-    color: #FFFFFF !important;
+    color: #4338CA !important;
     transform: translateY(-1px) !important;
 }
 
@@ -477,7 +462,7 @@ section[data-testid="stSidebar"] button[kind="secondary"]:hover {
 }
 .dark-quad-box:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
 }
 .dark-quad-title {
     font-weight: 700;
@@ -498,14 +483,20 @@ section[data-testid="stSidebar"] button[kind="secondary"]:hover {
     height: 6px;
 }
 ::-webkit-scrollbar-track {
-    background: #0A0E17;
+    background: #F1F5F9;
 }
 ::-webkit-scrollbar-thumb {
-    background: #1E293B;
+    background: #CBD5E1;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #334155;
+    background: #94A3B8;
+}
+
+/* 16. Typography Headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #0F172A !important;
+    font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 </style>
 """).strip()
@@ -563,15 +554,15 @@ def get_bank_engine_and_data():
 # ----------------- SIDEBAR CONTROLS -----------------
 with st.sidebar:
     SIDEBAR_BRAND_HTML = textwrap.dedent(f"""
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;">
-        <div style="flex-shrink: 0; filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.5));">
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 6px 0; border-bottom: 1px solid #E2E8F0; padding-bottom: 14px;">
+        <div style="flex-shrink: 0; filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.25));">
             {get_logo_svg(36)}
         </div>
         <div>
-            <div style="font-weight: 800; font-size: 15px; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">CausalRetention</div>
-            <div style="font-size: 11px; color: #94A3B8; font-weight: 500; display: flex; align-items: center; gap: 5px; margin-top: 2px;">
+            <div style="font-weight: 800; font-size: 15px; color: #0F172A; letter-spacing: -0.02em; line-height: 1.2;">CausalRetention</div>
+            <div style="font-size: 11px; color: #64748B; font-weight: 500; display: flex; align-items: center; gap: 5px; margin-top: 2px;">
                 <span>AI Decision Engine</span>
-                <span style="font-size: 9px; background: rgba(99, 102, 241, 0.2); color: #A5B4FC; padding: 1px 5px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(99, 102, 241, 0.35);">v2.4</span>
+                <span style="font-size: 9px; background: #EEF2FF; color: #4338CA; padding: 1px 5px; border-radius: 4px; font-weight: 700; border: 1px solid #C7D2FE;">v2.4</span>
             </div>
         </div>
     </div>
@@ -626,9 +617,9 @@ with st.sidebar:
 
     st.markdown(
         f"""
-        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 8px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; margin-top: -4px; margin-bottom: 12px;">
-            <span style="font-size: 11px; color: #94A3B8; font-weight: 700; text-transform: uppercase;">Selected Budget:</span>
-            <span style="font-size: 13px; color: #A5B4FC; font-weight: 800;">${budget_input:,.0f}</span>
+        <div style="background: #EEF2FF; border: 1px solid #C7D2FE; border-radius: 8px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; margin-top: -4px; margin-bottom: 12px;">
+            <span style="font-size: 11px; color: #64748B; font-weight: 700; text-transform: uppercase;">Selected Budget:</span>
+            <span style="font-size: 13px; color: #4338CA; font-weight: 800;">${budget_input:,.0f}</span>
         </div>
         """,
         unsafe_allow_html=True,
@@ -654,22 +645,22 @@ with st.sidebar:
 
     st.markdown("---")
     SIDEBAR_SPECS_HTML = textwrap.dedent("""
-    <div style="background: rgba(20, 31, 52, 0.65); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #94A3B8; line-height: 1.6; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);">
-        <div style="font-weight: 700; color: #FFFFFF; margin-bottom: 8px; font-size: 12.5px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #64748B; line-height: 1.6; box-shadow: 0 1px 4px rgba(15, 23, 42, 0.04);">
+        <div style="font-weight: 700; color: #0F172A; margin-bottom: 8px; font-size: 12.5px; display: flex; align-items: center; justify-content: space-between;">
             <span>Engine Specification</span>
-            <span style="color: #34D399; font-size: 11px; font-weight: 600; background: rgba(16, 185, 129, 0.12); padding: 2px 8px; border-radius: 9999px; border: 1px solid rgba(16, 185, 129, 0.25);">● Online</span>
+            <span style="color: #047857; font-size: 11px; font-weight: 600; background: #ECFDF5; padding: 2px 8px; border-radius: 9999px; border: 1px solid #A7F3D0;">● Online</span>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-            <span>Architecture:</span> <strong style="color: #F1F5F9;">Two-Model T-Learner</strong>
+            <span>Architecture:</span> <strong style="color: #0F172A;">Two-Model T-Learner</strong>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-            <span>Estimator:</span> <strong style="color: #F1F5F9;">XGBoost (gbtree)</strong>
+            <span>Estimator:</span> <strong style="color: #0F172A;">XGBoost (gbtree)</strong>
         </div>
         <div style="display: flex; justify-content: space-between; margin-bottom: 4px;">
-            <span>Objective:</span> <strong style="color: #F1F5F9;">Net ROI Maximization</strong>
+            <span>Objective:</span> <strong style="color: #0F172A;">Net ROI Maximization</strong>
         </div>
         <div style="display: flex; justify-content: space-between;">
-            <span>Optimization:</span> <strong style="color: #F1F5F9;">Greedy Knapsack</strong>
+            <span>Optimization:</span> <strong style="color: #0F172A;">Greedy Knapsack</strong>
         </div>
     </div>
     """).strip()
@@ -680,7 +671,7 @@ with st.sidebar:
 NAVBAR_HTML = textwrap.dedent(f"""
 <div class="enterprise-navbar">
     <div class="nav-brand-left">
-        <div style="filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5)); display: flex; align-items: center;">
+        <div style="filter: drop-shadow(0 2px 8px rgba(79, 70, 229, 0.25)); display: flex; align-items: center;">
             {get_logo_svg(28)}
         </div>
         <span class="nav-brand-text">CausalRetention</span>
@@ -693,8 +684,8 @@ NAVBAR_HTML = textwrap.dedent(f"""
             <span class="pulse-dot"></span>
             <span>Two-Model XGBoost Online &middot; 14ms</span>
         </div>
-        <a href="https://github.com/Sohan9022/CausalRetention" target="_blank" style="text-decoration: none; color: #CBD5E1; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 8px; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;">
-            <span style="color: #818CF8;">★</span> GitHub Repo ↗
+        <a href="https://github.com/Sohan9022/CausalRetention" target="_blank" style="text-decoration: none; color: #334155; font-size: 12px; font-weight: 600; background: #F8FAFC; border: 1px solid #CBD5E1; padding: 6px 14px; border-radius: 8px; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;">
+            <span style="color: #4F46E5;">★</span> GitHub Repo ↗
         </a>
     </div>
 </div>
@@ -707,17 +698,17 @@ HEADER_HTML = textwrap.dedent(f"""
 <div class="brand-header-card">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
         <div style="display: flex; align-items: center; gap: 18px;">
-            <div style="filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.55)); display: flex; align-items: center;">
+            <div style="filter: drop-shadow(0 4px 14px rgba(79, 70, 229, 0.25)); display: flex; align-items: center;">
                 {get_logo_svg(52)}
             </div>
             <div>
                 <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
-                    <h1 style="color: #FFFFFF; font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.025em;">
+                    <h1 style="color: #0F172A; font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.025em;">
                         CausalRetention
                     </h1>
-                    <span style="font-size: 11px; font-weight: 700; color: #A5B4FC; background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); padding: 3px 8px; border-radius: 6px; letter-spacing: 0.04em;">DECISION INTELLIGENCE</span>
+                    <span style="font-size: 11px; font-weight: 700; color: #4338CA; background: #EEF2FF; border: 1px solid #C7D2FE; padding: 3px 8px; border-radius: 6px; letter-spacing: 0.04em;">DECISION INTELLIGENCE</span>
                 </div>
-                <div style="color: #94A3B8; font-size: 13.5px; line-height: 1.5;">
+                <div style="color: #64748B; font-size: 13.5px; line-height: 1.5;">
                     Prescriptive CATE Uplift Engine &middot; Counterfactual Intervention Modeling &middot; Knapsack Budget Optimizer
                 </div>
             </div>
@@ -736,12 +727,12 @@ st.markdown(HEADER_HTML, unsafe_allow_html=True)
 
 # ----------------- PROMINENT ENVIRONMENT STATUS (GOOGLE CLOUD STYLE) -----------------
 ENV_BANNER_HTML = textwrap.dedent(f"""
-<div style="background: rgba(18, 28, 48, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);">
+<div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-radius: 12px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);">
     <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.07em;">Active Environment:</span>
-        <span style="color: #F8FAFC; font-weight: 700; font-size: 13.5px; background: rgba(99, 102, 241, 0.12); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(99, 102, 241, 0.25);">{dataset_source}</span>
+        <span style="font-size: 11px; font-weight: 800; color: #64748B; text-transform: uppercase; letter-spacing: 0.07em;">Active Environment:</span>
+        <span style="color: #312E81; font-weight: 700; font-size: 13.5px; background: #EEF2FF; padding: 3px 10px; border-radius: 6px; border: 1px solid #C7D2FE;">{dataset_source}</span>
     </div>
-    <div style="font-size: 12px; color: #818CF8; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+    <div style="font-size: 12px; color: #4F46E5; font-weight: 600; display: flex; align-items: center; gap: 6px;">
         <span>⚙️ Switch industry cohorts or tune capital allocation in the sidebar (←)</span>
     </div>
 </div>
@@ -859,22 +850,22 @@ with st.sidebar:
     st.markdown("---")
     st.markdown("<p class='sidebar-section-title'>⚡ Live Allocation Impact</p>", unsafe_allow_html=True)
     SIDEBAR_IMPACT_HTML = textwrap.dedent(f"""
-    <div style="background: linear-gradient(180deg, rgba(22, 34, 56, 0.85) 0%, rgba(14, 22, 38, 0.95) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-left: 3px solid #6366F1; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);">
+    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-left: 4px solid #4F46E5; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Targeted Cohort</span>
-            <span style="color: #FFFFFF; font-weight: 800; font-size: 12.5px;">{summary['customers_targeted']:,} accounts</span>
+            <span style="color: #64748B; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Targeted Cohort</span>
+            <span style="color: #0F172A; font-weight: 800; font-size: 12.5px;">{summary['customers_targeted']:,} accounts</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Budget Spent</span>
-            <span style="color: #818CF8; font-weight: 700; font-size: 12.5px;">${summary['budget_spent']:,.0f} <span style="color: #64748B; font-weight: 500;">/ ${budget_input:,.0f}</span></span>
+            <span style="color: #64748B; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Budget Spent</span>
+            <span style="color: #4F46E5; font-weight: 700; font-size: 12.5px;">${summary['budget_spent']:,.0f} <span style="color: #94A3B8; font-weight: 500;">/ ${budget_input:,.0f}</span></span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Net Profit</span>
-            <span style="color: #34D399; font-weight: 800; font-size: 13.5px;">+${summary['net_profit']:,.0f}</span>
+            <span style="color: #64748B; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Net Profit</span>
+            <span style="color: #047857; font-weight: 800; font-size: 13.5px;">+${summary['net_profit']:,.0f}</span>
         </div>
         <div style="display: flex; justify-content: space-between; align-items: center;">
-            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Campaign ROI</span>
-            <span style="color: #34D399; font-weight: 800; font-size: 13.5px; background: rgba(16, 185, 129, 0.12); padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.25);">+{summary['roi_percent']:.1f}%</span>
+            <span style="color: #64748B; font-size: 11px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.05em;">Campaign ROI</span>
+            <span style="color: #047857; font-weight: 800; font-size: 13.5px; background: #ECFDF5; padding: 2px 8px; border-radius: 6px; border: 1px solid #A7F3D0;">+{summary['roi_percent']:.1f}%</span>
         </div>
     </div>
     """).strip()
@@ -886,52 +877,52 @@ k1, k2, k3, k4 = st.columns(4)
 
 with k1:
     KPI1_HTML = textwrap.dedent(f"""
-    <div style="background: linear-gradient(180deg, rgba(22, 34, 56, 0.8) 0%, rgba(14, 22, 38, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.09); border-top: 3px solid #6366F1; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08); transition: all 0.2s ease;">
-        <div style="color: #94A3B8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #4F46E5; border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 20px -4px rgba(15, 23, 42, 0.05); transition: all 0.2s ease;">
+        <div style="color: #64748B; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
             <span>Capital Allocated</span>
-            <span style="background: rgba(99, 102, 241, 0.14); color: #A5B4FC; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid rgba(99, 102, 241, 0.3);">BUDGET</span>
+            <span style="background: #EEF2FF; color: #4338CA; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid #C7D2FE;">BUDGET</span>
         </div>
-        <div style="color: #FFFFFF; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">${summary['budget_spent']:,.0f}</div>
-        <div style="color: #A5B4FC; font-size: 12px; font-weight: 600;">${summary['budget_remaining']:,.0f} unspent remaining</div>
+        <div style="color: #0F172A; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">${summary['budget_spent']:,.0f}</div>
+        <div style="color: #4F46E5; font-size: 12px; font-weight: 600;">${summary['budget_remaining']:,.0f} unspent remaining</div>
     </div>
     """).strip()
     st.markdown(KPI1_HTML, unsafe_allow_html=True)
 
 with k2:
     KPI2_HTML = textwrap.dedent(f"""
-    <div style="background: linear-gradient(180deg, rgba(22, 34, 56, 0.8) 0%, rgba(14, 22, 38, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.09); border-top: 3px solid #10B981; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08); transition: all 0.2s ease;">
-        <div style="color: #94A3B8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #059669; border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 20px -4px rgba(15, 23, 42, 0.05); transition: all 0.2s ease;">
+        <div style="color: #64748B; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
             <span>Customers Saved</span>
-            <span style="background: rgba(16, 185, 129, 0.14); color: #34D399; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid rgba(16, 185, 129, 0.3);">LIFT</span>
+            <span style="background: #ECFDF5; color: #047857; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid #A7F3D0;">LIFT</span>
         </div>
-        <div style="color: #FFFFFF; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+{summary['expected_retained_lift']:.0f}</div>
-        <div style="color: #34D399; font-size: 12px; font-weight: 600;">{summary['customers_targeted']:,} accounts targeted</div>
+        <div style="color: #0F172A; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+{summary['expected_retained_lift']:.0f}</div>
+        <div style="color: #059669; font-size: 12px; font-weight: 600;">{summary['customers_targeted']:,} accounts targeted</div>
     </div>
     """).strip()
     st.markdown(KPI2_HTML, unsafe_allow_html=True)
 
 with k3:
     KPI3_HTML = textwrap.dedent(f"""
-    <div style="background: linear-gradient(180deg, rgba(22, 34, 56, 0.8) 0%, rgba(14, 22, 38, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.09); border-top: 3px solid #06B6D4; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08); transition: all 0.2s ease;">
-        <div style="color: #94A3B8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #0891B2; border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 20px -4px rgba(15, 23, 42, 0.05); transition: all 0.2s ease;">
+        <div style="color: #64748B; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
             <span>Net Preserved Revenue</span>
-            <span style="background: rgba(6, 182, 212, 0.14); color: #22D3EE; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid rgba(6, 182, 212, 0.3);">PRESERVED</span>
+            <span style="background: #ECFEFF; color: #0E7490; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid #A5F3FC;">PRESERVED</span>
         </div>
-        <div style="color: #FFFFFF; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+${summary['net_profit']:,.0f}</div>
-        <div style="color: #22D3EE; font-size: 12px; font-weight: 600;">${summary['gross_revenue_saved']:,.0f} gross saved</div>
+        <div style="color: #0F172A; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+${summary['net_profit']:,.0f}</div>
+        <div style="color: #0891B2; font-size: 12px; font-weight: 600;">${summary['gross_revenue_saved']:,.0f} gross saved</div>
     </div>
     """).strip()
     st.markdown(KPI3_HTML, unsafe_allow_html=True)
 
 with k4:
     KPI4_HTML = textwrap.dedent(f"""
-    <div style="background: linear-gradient(180deg, rgba(22, 34, 56, 0.8) 0%, rgba(14, 22, 38, 0.9) 100%); border: 1px solid rgba(255, 255, 255, 0.09); border-top: 3px solid #F59E0B; border-radius: 14px; padding: 18px 22px; box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08); transition: all 0.2s ease;">
-        <div style="color: #94A3B8; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+    <div style="background: #FFFFFF; border: 1px solid #E2E8F0; border-top: 4px solid #D97706; border-radius: 14px; padding: 18px 22px; box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 8px 20px -4px rgba(15, 23, 42, 0.05); transition: all 0.2s ease;">
+        <div style="color: #64748B; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
             <span>Campaign Net ROI</span>
-            <span style="background: rgba(245, 158, 11, 0.14); color: #FBBF24; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid rgba(245, 158, 11, 0.3);">EFFICIENCY</span>
+            <span style="background: #FFFBEB; color: #B45309; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 5px; border: 1px solid #FDE68A;">EFFICIENCY</span>
         </div>
-        <div style="color: #FFFFFF; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+{summary['roi_percent']:.1f}%</div>
-        <div style="color: #FBBF24; font-size: 12px; font-weight: 600;">Net Profit / Capital Spent</div>
+        <div style="color: #0F172A; font-size: 28px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 6px;">+{summary['roi_percent']:.1f}%</div>
+        <div style="color: #D97706; font-size: 12px; font-weight: 600;">Net Profit / Capital Spent</div>
     </div>
     """).strip()
     st.markdown(KPI4_HTML, unsafe_allow_html=True)
@@ -972,18 +963,18 @@ with tab_bench:
                 go.Bar(
                     x=["Causal Uplift (Ours)", "Standard Churn ML", "Random Baseline"],
                     y=[causal_p, churn_p, random_p],
-                    marker_color=["#6366F1", "#F43F5E", "#64748B"],
+                    marker_color=["#4F46E5", "#E11D48", "#94A3B8"],
                     text=[f"${causal_p:,.0f}", f"${churn_p:,.0f}", f"${random_p:,.0f}"],
                     textposition="auto",
                     textfont=dict(color="#FFFFFF", size=13),
                 )
             )
             fig_p.update_layout(
-                plot_bgcolor="rgba(15, 23, 42, 0.45)",
+                plot_bgcolor="rgba(248, 250, 252, 0.8)",
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
-                yaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", zerolinecolor="rgba(255, 255, 255, 0.15)", tickfont=dict(color="#CBD5E1")),
-                xaxis=dict(tickfont=dict(color="#F8FAFC", size=13)),
+                yaxis=dict(gridcolor="#E2E8F0", zerolinecolor="#CBD5E1", tickfont=dict(color="#475569")),
+                xaxis=dict(tickfont=dict(color="#0F172A", size=13)),
             )
             st.plotly_chart(fig_p, use_container_width=True)
 
@@ -998,9 +989,9 @@ with tab_bench:
                     y=curve_data["cumulative_incremental_retained"],
                     mode="lines+markers",
                     name="Causal Uplift",
-                    line=dict(color="#6366F1", width=3),
+                    line=dict(color="#4F46E5", width=3),
                     fill="tozeroy",
-                    fillcolor="rgba(99, 102, 241, 0.15)",
+                    fillcolor="rgba(79, 70, 229, 0.1)",
                 )
             )
             max_lift = curve_data["cumulative_incremental_retained"].iloc[-1]
@@ -1010,16 +1001,16 @@ with tab_bench:
                     y=[0, max_lift],
                     mode="lines",
                     name="Random Baseline",
-                    line=dict(color="#64748B", dash="dash"),
+                    line=dict(color="#94A3B8", dash="dash"),
                 )
             )
             fig_q.update_layout(
-                plot_bgcolor="rgba(15, 23, 42, 0.45)",
+                plot_bgcolor="rgba(248, 250, 252, 0.8)",
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
-                xaxis=dict(title="Customer Base Targeted (%)", gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
-                yaxis=dict(title="Incremental Saved", gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
-                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(color="#F8FAFC")),
+                xaxis=dict(title="Customer Base Targeted (%)", gridcolor="#E2E8F0", tickfont=dict(color="#475569"), title_font=dict(color="#0F172A")),
+                yaxis=dict(title="Incremental Saved", gridcolor="#E2E8F0", tickfont=dict(color="#475569"), title_font=dict(color="#0F172A")),
+                legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1, font=dict(color="#0F172A")),
             )
             st.plotly_chart(fig_q, use_container_width=True)
 
@@ -1041,7 +1032,7 @@ with tab_cohorts:
                         labels=q_counts["Quadrant"],
                         values=q_counts["Count"],
                         hole=0.6,
-                        marker=dict(colors=["#6366F1", "#10B981", "#F59E0B", "#F43F5E"]),
+                        marker=dict(colors=["#4F46E5", "#059669", "#D97706", "#E11D48"]),
                     )
                 ]
             )
@@ -1049,7 +1040,7 @@ with tab_cohorts:
                 margin=dict(l=10, r=10, t=10, b=10),
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 showlegend=False,
-                font=dict(color="#F8FAFC"),
+                font=dict(color="#0F172A"),
             )
             st.plotly_chart(fig_donut, use_container_width=True)
 
@@ -1061,10 +1052,10 @@ with tab_cohorts:
                 y="uplift_score",
                 color="quadrant",
                 color_discrete_map={
-                    "Persuadable (High Priority)": "#6366F1",
-                    "Sure Thing (Organic Retain)": "#10B981",
-                    "Lost Cause (Unresponsive)": "#F59E0B",
-                    "Sleeping Dog (Do Not Contact)": "#F43F5E",
+                    "Persuadable (High Priority)": "#4F46E5",
+                    "Sure Thing (Organic Retain)": "#059669",
+                    "Lost Cause (Unresponsive)": "#D97706",
+                    "Sleeping Dog (Do Not Contact)": "#E11D48",
                 },
                 labels={
                     "baseline_churn_prob": "Baseline Churn Risk (Traditional ML)",
@@ -1073,12 +1064,12 @@ with tab_cohorts:
                 },
             )
             fig_sc.update_layout(
-                plot_bgcolor="rgba(15, 23, 42, 0.45)",
+                plot_bgcolor="rgba(248, 250, 252, 0.8)",
                 paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
-                xaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
-                yaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
-                legend=dict(font=dict(color="#F8FAFC")),
+                xaxis=dict(gridcolor="#E2E8F0", tickfont=dict(color="#475569"), title_font=dict(color="#0F172A")),
+                yaxis=dict(gridcolor="#E2E8F0", tickfont=dict(color="#475569"), title_font=dict(color="#0F172A")),
+                legend=dict(font=dict(color="#0F172A")),
             )
             st.plotly_chart(fig_sc, use_container_width=True)
 
@@ -1088,9 +1079,9 @@ with tab_cohorts:
     with p1:
         st.markdown(
             textwrap.dedent("""
-            <div class="dark-quad-box" style="background: rgba(99, 102, 241, 0.12); border-color: rgba(99, 102, 241, 0.4); border-left: 3px solid #6366F1;">
-                <div class="dark-quad-title" style="color: #A5B4FC;">🎯 Persuadables</div>
-                <div class="dark-quad-desc" style="color: #E2E8F0;">High uplift (&tau; &ge; +0.10). Churn without offer, but stay with one. <strong style="color: #818CF8; display: block; margin-top: 4px;">Concentrate budget here.</strong></div>
+            <div class="dark-quad-box" style="background: #EEF2FF; border-color: #C7D2FE; border-left: 4px solid #4F46E5;">
+                <div class="dark-quad-title" style="color: #3730A3;">🎯 Persuadables</div>
+                <div class="dark-quad-desc" style="color: #334155;">High uplift (&tau; &ge; +0.10). Churn without offer, but stay with one. <strong style="color: #4338CA; display: block; margin-top: 4px;">Concentrate budget here.</strong></div>
             </div>
             """).strip(),
             unsafe_allow_html=True,
@@ -1099,9 +1090,9 @@ with tab_cohorts:
     with p2:
         st.markdown(
             textwrap.dedent("""
-            <div class="dark-quad-box" style="background: rgba(16, 185, 129, 0.12); border-color: rgba(16, 185, 129, 0.4); border-left: 3px solid #10B981;">
-                <div class="dark-quad-title" style="color: #6EE7B7;">🛡️ Sure Things</div>
-                <div class="dark-quad-desc" style="color: #E2E8F0;">High organic retention (>90%). Discounts create deadweight loss. <strong style="color: #34D399; display: block; margin-top: 4px;">Suppress offers.</strong></div>
+            <div class="dark-quad-box" style="background: #ECFDF5; border-color: #A7F3D0; border-left: 4px solid #059669;">
+                <div class="dark-quad-title" style="color: #065F46;">🛡️ Sure Things</div>
+                <div class="dark-quad-desc" style="color: #334155;">High organic retention (>90%). Discounts create deadweight loss. <strong style="color: #047857; display: block; margin-top: 4px;">Suppress offers.</strong></div>
             </div>
             """).strip(),
             unsafe_allow_html=True,
@@ -1110,9 +1101,9 @@ with tab_cohorts:
     with p3:
         st.markdown(
             textwrap.dedent("""
-            <div class="dark-quad-box" style="background: rgba(245, 158, 11, 0.12); border-color: rgba(245, 158, 11, 0.4); border-left: 3px solid #F59E0B;">
-                <div class="dark-quad-title" style="color: #FCD34D;">⚠️ Lost Causes</div>
-                <div class="dark-quad-desc" style="color: #E2E8F0;">Severe churn risk, near-zero uplift. Leave regardless of incentive. <strong style="color: #FBBF24; display: block; margin-top: 4px;">Suppress to save spend.</strong></div>
+            <div class="dark-quad-box" style="background: #FFFBEB; border-color: #FDE68A; border-left: 4px solid #D97706;">
+                <div class="dark-quad-title" style="color: #92400E;">⚠️ Lost Causes</div>
+                <div class="dark-quad-desc" style="color: #334155;">Severe churn risk, near-zero uplift. Leave regardless of incentive. <strong style="color: #B45309; display: block; margin-top: 4px;">Suppress to save spend.</strong></div>
             </div>
             """).strip(),
             unsafe_allow_html=True,
@@ -1121,9 +1112,9 @@ with tab_cohorts:
     with p4:
         st.markdown(
             textwrap.dedent("""
-            <div class="dark-quad-box" style="background: rgba(244, 63, 94, 0.12); border-color: rgba(244, 63, 94, 0.4); border-left: 3px solid #F43F5E;">
-                <div class="dark-quad-title" style="color: #FDA4AF;">🛑 Sleeping Dogs</div>
-                <div class="dark-quad-desc" style="color: #E2E8F0;">Negative uplift (&tau; &lt; 0). Reaching out triggers cancellations. <strong style="color: #FB7185; display: block; margin-top: 4px;">Blacklist from campaigns.</strong></div>
+            <div class="dark-quad-box" style="background: #FFF1F2; border-color: #FECDD3; border-left: 4px solid #E11D48;">
+                <div class="dark-quad-title" style="color: #9F1239;">🛑 Sleeping Dogs</div>
+                <div class="dark-quad-desc" style="color: #334155;">Negative uplift (&tau; &lt; 0). Reaching out triggers cancellations. <strong style="color: #BE123C; display: block; margin-top: 4px;">Blacklist from campaigns.</strong></div>
             </div>
             """).strip(),
             unsafe_allow_html=True,
