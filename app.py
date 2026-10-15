@@ -12,14 +12,16 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 from data_loader import load_or_create_data
 from dynamic_pipeline import UniversalTLearner, auto_prepare_dataset
+from logo_helper import get_logo_svg
 from optimizer import apply_financial_metrics, compare_all_strategies, optimize_retention_budget
 from report_generator import generate_html_report
 from uplift_model import TLearnerUpliftEngine, compute_cumulative_uplift_curve
 
 # --- PAGE CONFIGURATION ---
+logo_path = os.path.join(os.path.dirname(__file__), "assets", "logo.svg")
 st.set_page_config(
     page_title="CausalRetention | Decision Intelligence",
-    page_icon="⚡",
+    page_icon=logo_path if os.path.exists(logo_path) else "⚡",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -560,12 +562,17 @@ def get_bank_engine_and_data():
 
 # ----------------- SIDEBAR CONTROLS -----------------
 with st.sidebar:
-    SIDEBAR_BRAND_HTML = textwrap.dedent("""
-    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 18px; padding: 4px 0;">
-        <div style="background: linear-gradient(135deg, #6366F1 0%, #4F46E5 100%); width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 800; font-size: 14px; box-shadow: 0 0 16px rgba(99, 102, 241, 0.4);">CR</div>
+    SIDEBAR_BRAND_HTML = textwrap.dedent(f"""
+    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 6px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.08); padding-bottom: 14px;">
+        <div style="flex-shrink: 0; filter: drop-shadow(0 0 12px rgba(99, 102, 241, 0.5));">
+            {get_logo_svg(36)}
+        </div>
         <div>
-            <div style="font-weight: 800; font-size: 15px; color: #FFFFFF; letter-spacing: -0.02em;">CausalRetention</div>
-            <div style="font-size: 11px; color: #94A3B8;">Executive Decision System</div>
+            <div style="font-weight: 800; font-size: 15px; color: #FFFFFF; letter-spacing: -0.02em; line-height: 1.2;">CausalRetention</div>
+            <div style="font-size: 11px; color: #94A3B8; font-weight: 500; display: flex; align-items: center; gap: 5px; margin-top: 2px;">
+                <span>AI Decision Engine</span>
+                <span style="font-size: 9px; background: rgba(99, 102, 241, 0.2); color: #A5B4FC; padding: 1px 5px; border-radius: 4px; font-weight: 700; border: 1px solid rgba(99, 102, 241, 0.35);">v2.4</span>
+            </div>
         </div>
     </div>
     """).strip()
@@ -669,18 +676,24 @@ with st.sidebar:
     st.markdown(SIDEBAR_SPECS_HTML, unsafe_allow_html=True)
 
 
-# ----------------- TOP ENTERPRISE NAVBAR (100% REAL & AUTHENTIC) -----------------
-NAVBAR_HTML = textwrap.dedent("""
+# ----------------- TOP ENTERPRISE NAVBAR (GOOGLE DEEPMIND / META AI PROTOTYPE STANDARD) -----------------
+NAVBAR_HTML = textwrap.dedent(f"""
 <div class="enterprise-navbar">
     <div class="nav-brand-left">
-        <div class="nav-logo-icon">⚡</div>
+        <div style="filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.5)); display: flex; align-items: center;">
+            {get_logo_svg(28)}
+        </div>
         <span class="nav-brand-text">CausalRetention</span>
-        <span class="nav-tag">Prescriptive ML</span>
+        <span class="nav-tag">AI RESEARCH PROTO</span>
         <span class="nav-crumb">/</span>
-        <span class="nav-env-name">Decision Intelligence & Uplift Platform</span>
+        <span class="nav-env-name">CATE Uplift Architecture</span>
     </div>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <a href="https://github.com/Sohan9022/CausalRetention" target="_blank" style="text-decoration: none; color: #CBD5E1; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 8px; transition: all 0.2s ease;">
+    <div class="nav-telemetry-right">
+        <div class="telemetry-pill-green">
+            <span class="pulse-dot"></span>
+            <span>Two-Model XGBoost Online &middot; 14ms</span>
+        </div>
+        <a href="https://github.com/Sohan9022/CausalRetention" target="_blank" style="text-decoration: none; color: #CBD5E1; font-size: 12px; font-weight: 600; background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(255, 255, 255, 0.12); padding: 6px 14px; border-radius: 8px; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px;">
             <span style="color: #818CF8;">★</span> GitHub Repo ↗
         </a>
     </div>
@@ -689,25 +702,30 @@ NAVBAR_HTML = textwrap.dedent("""
 st.markdown(NAVBAR_HTML, unsafe_allow_html=True)
 
 
-# ----------------- TOP HEADER BANNER (NO RAW TEXT) -----------------
-HEADER_HTML = textwrap.dedent("""
+# ----------------- TOP HEADER BANNER (GOOGLE / META AI EXECUTIVE HERO) -----------------
+HEADER_HTML = textwrap.dedent(f"""
 <div class="brand-header-card">
-    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-        <div style="display: flex; align-items: center; gap: 14px;">
-            <div class="brand-badge">CR</div>
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+        <div style="display: flex; align-items: center; gap: 18px;">
+            <div style="filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.55)); display: flex; align-items: center;">
+                {get_logo_svg(52)}
+            </div>
             <div>
-                <h1 style="color: #FFFFFF; font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.02em;">
-                    CausalRetention <span style="font-size: 13.5px; font-weight: 600; color: #818CF8; margin-left: 6px; letter-spacing: 0;">Portfolio Decision Intelligence</span>
-                </h1>
-                <div style="color: #94A3B8; font-size: 13px; margin-top: 4px;">
-                    Prescriptive CATE Uplift Engine &middot; Counterfactual Intervention &middot; Knapsack Budget Optimizer
+                <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 4px;">
+                    <h1 style="color: #FFFFFF; font-size: 24px; font-weight: 800; margin: 0; letter-spacing: -0.025em;">
+                        CausalRetention
+                    </h1>
+                    <span style="font-size: 11px; font-weight: 700; color: #A5B4FC; background: rgba(99, 102, 241, 0.18); border: 1px solid rgba(99, 102, 241, 0.35); padding: 3px 8px; border-radius: 6px; letter-spacing: 0.04em;">DECISION INTELLIGENCE</span>
+                </div>
+                <div style="color: #94A3B8; font-size: 13.5px; line-height: 1.5;">
+                    Prescriptive CATE Uplift Engine &middot; Counterfactual Intervention Modeling &middot; Knapsack Budget Optimizer
                 </div>
             </div>
         </div>
-        <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
             <div class="live-indicator">
                 <span class="pulse-dot"></span>
-                <span>Production Engine Active &middot; XGBoost T-Learner v2.4</span>
+                <span>Production Estimator Active &middot; Two-Model XGBoost v2.4</span>
             </div>
         </div>
     </div>
@@ -716,15 +734,15 @@ HEADER_HTML = textwrap.dedent("""
 st.markdown(HEADER_HTML, unsafe_allow_html=True)
 
 
-# ----------------- PROMINENT ENVIRONMENT STATUS -----------------
+# ----------------- PROMINENT ENVIRONMENT STATUS (GOOGLE CLOUD STYLE) -----------------
 ENV_BANNER_HTML = textwrap.dedent(f"""
-<div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 12px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+<div style="background: rgba(18, 28, 48, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 12px; padding: 12px 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);">
     <div style="display: flex; align-items: center; gap: 10px;">
-        <span style="font-size: 11.5px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.06em;">Active Cohort:</span>
-        <span style="color: #F8FAFC; font-weight: 700; font-size: 13.5px;">{dataset_source}</span>
+        <span style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.07em;">Active Environment:</span>
+        <span style="color: #F8FAFC; font-weight: 700; font-size: 13.5px; background: rgba(99, 102, 241, 0.12); padding: 3px 10px; border-radius: 6px; border: 1px solid rgba(99, 102, 241, 0.25);">{dataset_source}</span>
     </div>
-    <div style="font-size: 11.5px; color: #818CF8; font-weight: 600;">
-        ⚙️ Switch industry cohorts or adjust budget in the sidebar (←)
+    <div style="font-size: 12px; color: #818CF8; font-weight: 600; display: flex; align-items: center; gap: 6px;">
+        <span>⚙️ Switch industry cohorts or tune capital allocation in the sidebar (←)</span>
     </div>
 </div>
 """).strip()
