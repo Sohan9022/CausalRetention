@@ -516,15 +516,25 @@ def get_default_engine_and_data():
     """Load or train default IBM Telco Benchmark."""
     data = load_or_create_data()
     bundle_path = os.path.join("models", "uplift_model_bundle.joblib")
+    engine = None
     if os.path.exists(bundle_path):
-        engine = TLearnerUpliftEngine.load()
-    else:
+        try:
+            engine = TLearnerUpliftEngine.load()
+            # Verify inference passes cleanly without unpickling version breakage
+            _ = engine.predict_uplift(data.head(2))
+        except Exception:
+            engine = None
+
+    if engine is None:
         from sklearn.model_selection import train_test_split
 
         train_df, _ = train_test_split(data, test_size=0.25, random_state=42)
         engine = TLearnerUpliftEngine(random_state=42)
         engine.fit(train_df)
-        engine.save()
+        try:
+            engine.save()
+        except Exception:
+            pass
     scored = engine.predict_uplift(data)
     return engine, scored
 
@@ -952,7 +962,7 @@ with tab_bench:
             )
             fig_p.update_layout(
                 plot_bgcolor="rgba(15, 23, 42, 0.45)",
-                paper_bgcolor="transparent",
+                paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
                 yaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", zerolinecolor="rgba(255, 255, 255, 0.15)", tickfont=dict(color="#CBD5E1")),
                 xaxis=dict(tickfont=dict(color="#F8FAFC", size=13)),
@@ -987,7 +997,7 @@ with tab_bench:
             )
             fig_q.update_layout(
                 plot_bgcolor="rgba(15, 23, 42, 0.45)",
-                paper_bgcolor="transparent",
+                paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
                 xaxis=dict(title="Customer Base Targeted (%)", gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
                 yaxis=dict(title="Incremental Saved", gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
@@ -1019,7 +1029,7 @@ with tab_cohorts:
             )
             fig_donut.update_layout(
                 margin=dict(l=10, r=10, t=10, b=10),
-                paper_bgcolor="transparent",
+                paper_bgcolor="rgba(0, 0, 0, 0)",
                 showlegend=False,
                 font=dict(color="#F8FAFC"),
             )
@@ -1046,7 +1056,7 @@ with tab_cohorts:
             )
             fig_sc.update_layout(
                 plot_bgcolor="rgba(15, 23, 42, 0.45)",
-                paper_bgcolor="transparent",
+                paper_bgcolor="rgba(0, 0, 0, 0)",
                 margin=dict(l=20, r=20, t=20, b=20),
                 xaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
                 yaxis=dict(gridcolor="rgba(255, 255, 255, 0.07)", tickfont=dict(color="#CBD5E1"), title_font=dict(color="#94A3B8")),
