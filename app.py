@@ -63,7 +63,31 @@ footer {
 }
 header[data-testid="stHeader"] {
     background: transparent !important;
-    height: 1.2rem !important;
+    z-index: 9999 !important;
+}
+
+/* Ensure the sidebar open/collapse chevron is ALWAYS visible and styled */
+[data-testid="stSidebarCollapsedControl"] {
+    display: flex !important;
+    visibility: visible !important;
+    z-index: 100000 !important;
+    top: 12px !important;
+    left: 12px !important;
+    background: rgba(15, 23, 42, 0.95) !important;
+    border: 1px solid rgba(99, 102, 241, 0.5) !important;
+    border-radius: 8px !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
+    padding: 6px !important;
+    transition: all 0.2s ease !important;
+}
+[data-testid="stSidebarCollapsedControl"]:hover {
+    background: rgba(99, 102, 241, 0.35) !important;
+    border-color: #818CF8 !important;
+    transform: scale(1.05) !important;
+}
+[data-testid="stSidebarCollapseButton"] button {
+    color: #E2E8F0 !important;
 }
 
 /* Eliminate awkward top whitespace */
@@ -315,10 +339,71 @@ div[data-testid="stVerticalBlockBorderWrapper"] > div {
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2) !important;
 }
 
-/* Sidebar background */
+/* Sidebar background & rich contrast */
 section[data-testid="stSidebar"] {
-    background: linear-gradient(180deg, #0A0E17 0%, #060910 100%) !important;
-    border-right: 1px solid rgba(255, 255, 255, 0.06) !important;
+    background: linear-gradient(180deg, #0B101D 0%, #060911 100%) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+section[data-testid="stSidebar"] hr {
+    margin: 16px 0 !important;
+    border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Sidebar Titles & Labels */
+.sidebar-section-title {
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    color: #94A3B8 !important;
+    letter-spacing: 0.06em !important;
+    margin-bottom: 6px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* Sidebar Sliders */
+section[data-testid="stSidebar"] .stSlider label {
+    color: #F8FAFC !important;
+    font-size: 12.5px !important;
+    font-weight: 600 !important;
+}
+
+section[data-testid="stSidebar"] div[data-baseweb="slider"] {
+    margin-top: 4px !important;
+}
+
+/* Sidebar Radio Buttons */
+section[data-testid="stSidebar"] div[role="radiogroup"] {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label {
+    background: rgba(22, 31, 48, 0.6) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    width: 100% !important;
+    font-size: 12px !important;
+    color: #CBD5E1 !important;
+    transition: all 0.2s ease !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:hover {
+    background: rgba(99, 102, 241, 0.15) !important;
+    border-color: rgba(99, 102, 241, 0.4) !important;
+    color: #FFFFFF !important;
+}
+
+section[data-testid="stSidebar"] div[role="radiogroup"] > label[data-checked="true"],
+section[data-testid="stSidebar"] div[role="radiogroup"] > label:has(input:checked) {
+    background: rgba(99, 102, 241, 0.22) !important;
+    border-color: #6366F1 !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 0 12px rgba(99, 102, 241, 0.25) !important;
 }
 
 /* Buttons */
@@ -432,18 +517,63 @@ with st.sidebar:
     """).strip()
     st.markdown(SIDEBAR_BRAND_HTML, unsafe_allow_html=True)
 
+    st.markdown("<p class='sidebar-section-title'>📁 Data Environment</p>", unsafe_allow_html=True)
+    dataset_source = st.radio(
+        "Active Environment:",
+        [
+            "📊 Telecom Retention Benchmark (IBM Telco - 7,043 Accounts)",
+            "🏦 Banking Retention Benchmark (Bank Churn - 10,000 Accounts)",
+            "📁 Upload Custom Dataset (Any CSV File)",
+        ],
+        key="sidebar_dataset_source_selection",
+        label_visibility="collapsed",
+    )
+
     st.markdown("---")
-    st.markdown("<p style='font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94A3B8; letter-spacing: 0.06em;'>Financial Budget Allocation</p>", unsafe_allow_html=True)
+    st.markdown("<p class='sidebar-section-title'>💰 Retention Budget Allocation</p>", unsafe_allow_html=True)
+
+    if "sidebar_budget" not in st.session_state:
+        st.session_state["sidebar_budget"] = 15000
+
+    q_col1, q_col2, q_col3, q_col4 = st.columns(4)
+    with q_col1:
+        if st.button("$5k", use_container_width=True, key="btn_b5"):
+            st.session_state["sidebar_budget"] = 5000
+            st.rerun()
+    with q_col2:
+        if st.button("$15k", use_container_width=True, key="btn_b15"):
+            st.session_state["sidebar_budget"] = 15000
+            st.rerun()
+    with q_col3:
+        if st.button("$25k", use_container_width=True, key="btn_b25"):
+            st.session_state["sidebar_budget"] = 25000
+            st.rerun()
+    with q_col4:
+        if st.button("$50k", use_container_width=True, key="btn_b50"):
+            st.session_state["sidebar_budget"] = 50000
+            st.rerun()
 
     budget_input = st.slider(
         "Retention Budget ($)",
         min_value=2000,
         max_value=50000,
-        value=15000,
+        value=st.session_state["sidebar_budget"],
         step=1000,
         help="Maximum capital allocated for retention discounts & customer outreach.",
     )
+    st.session_state["sidebar_budget"] = budget_input
 
+    st.markdown(
+        f"""
+        <div style="background: rgba(99, 102, 241, 0.15); border: 1px solid rgba(99, 102, 241, 0.35); border-radius: 8px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; margin-top: -4px; margin-bottom: 12px;">
+            <span style="font-size: 11px; color: #94A3B8; font-weight: 700; text-transform: uppercase;">Selected Budget:</span>
+            <span style="font-size: 13px; color: #A5B4FC; font-weight: 800;">${budget_input:,.0f}</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    st.markdown("<p class='sidebar-section-title'>🎯 Causal Uplift Cutoff (Tau)</p>", unsafe_allow_html=True)
     uplift_threshold = st.slider(
         "Persuadable Cutoff (Tau)",
         min_value=0.05,
@@ -452,10 +582,11 @@ with st.sidebar:
         step=0.01,
         help="Minimum individual treatment effect (tau) to qualify for budget allocation.",
     )
+    st.caption(f"Requires at least **+{uplift_threshold*100:.0f}%** retention boost to target.")
 
     st.markdown("---")
-    st.markdown("<p style='font-size: 11px; font-weight: 700; text-transform: uppercase; color: #94A3B8; letter-spacing: 0.06em;'>Offer Cost Parameters</p>", unsafe_allow_html=True)
-    custom_cost_toggle = st.checkbox("Set Static Offer Cost", value=False)
+    st.markdown("<p class='sidebar-section-title'>🏷️ Offer Cost Strategy</p>", unsafe_allow_html=True)
+    custom_cost_toggle = st.checkbox("Set Static Flat Offer Cost", value=False)
     flat_cost = None
     if custom_cost_toggle:
         flat_cost = st.number_input("Flat Cost per Customer ($)", value=40.0, step=5.0)
@@ -531,28 +662,19 @@ HEADER_HTML = textwrap.dedent("""
 st.markdown(HEADER_HTML, unsafe_allow_html=True)
 
 
-# ----------------- PROMINENT ENVIRONMENT SWITCHER -----------------
-ENV_SWITCH_HTML = textwrap.dedent("""
-<div style="margin-bottom: 8px;">
-    <span style="font-size: 11.5px; font-weight: 700; color: #94A3B8; letter-spacing: 0.06em; text-transform: uppercase;">
-        ⚡ Enterprise Data Environment Cohort
-    </span>
+# ----------------- PROMINENT ENVIRONMENT STATUS -----------------
+ENV_BANNER_HTML = textwrap.dedent(f"""
+<div style="background: rgba(15, 23, 42, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 12px 18px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+        <span style="font-size: 11.5px; font-weight: 700; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.06em;">Active Cohort:</span>
+        <span style="color: #F8FAFC; font-weight: 700; font-size: 13.5px;">{dataset_source}</span>
+    </div>
+    <div style="font-size: 11.5px; color: #818CF8; font-weight: 600;">
+        ⚙️ Switch industry cohorts or adjust budget in the sidebar (←)
+    </div>
 </div>
 """).strip()
-st.markdown(ENV_SWITCH_HTML, unsafe_allow_html=True)
-
-dataset_source = st.radio(
-    "Active Environment:",
-    [
-        "📊 Telecom Retention Benchmark (IBM Telco - 7,043 Accounts)",
-        "🏦 Banking Retention Benchmark (Bank Churn - 10,000 Accounts)",
-        "📁 Upload Custom Dataset (Any CSV File)",
-    ],
-    horizontal=True,
-    label_visibility="collapsed",
-)
-
-st.write("")
+st.markdown(ENV_BANNER_HTML, unsafe_allow_html=True)
 
 # ----------------- DATASET LOGIC -----------------
 active_engine = None
@@ -659,6 +781,32 @@ opt_results = optimize_retention_budget(
 summary = opt_results["summary"]
 targeted_df = opt_results["targeted_df"]
 comp_df = compare_all_strategies(scored_fin, budget_limit=budget_input)
+
+# ----------------- SIDEBAR LIVE ALLOCATION PREVIEW -----------------
+with st.sidebar:
+    st.markdown("---")
+    st.markdown("<p class='sidebar-section-title'>⚡ Live Allocation Impact</p>", unsafe_allow_html=True)
+    SIDEBAR_IMPACT_HTML = textwrap.dedent(f"""
+    <div style="background: linear-gradient(145deg, rgba(20, 27, 45, 0.85) 0%, rgba(13, 19, 33, 0.95) 100%); border: 1px solid rgba(99, 102, 241, 0.35); border-left: 3px solid #6366F1; border-radius: 10px; padding: 12px 14px; margin-bottom: 12px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700;">Targeted Cohort</span>
+            <span style="color: #FFFFFF; font-weight: 700; font-size: 12px;">{summary['customers_targeted']:,} accounts</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700;">Budget Spent</span>
+            <span style="color: #60A5FA; font-weight: 700; font-size: 12px;">${summary['budget_spent']:,.0f} / ${budget_input:,.0f}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700;">Net Profit</span>
+            <span style="color: #10B981; font-weight: 800; font-size: 13px;">+${summary['net_profit']:,.0f}</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #94A3B8; font-size: 11px; text-transform: uppercase; font-weight: 700;">Campaign ROI</span>
+            <span style="color: #34D399; font-weight: 800; font-size: 13px;">+{summary['roi_percent']:.1f}%</span>
+        </div>
+    </div>
+    """).strip()
+    st.markdown(SIDEBAR_IMPACT_HTML, unsafe_allow_html=True)
 
 
 # ----------------- TOP EXECUTIVE KPI ROW (ENTERPRISE HIGH-CONTRAST) -----------------
